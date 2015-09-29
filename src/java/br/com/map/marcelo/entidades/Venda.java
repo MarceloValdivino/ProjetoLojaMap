@@ -42,6 +42,9 @@ public class Venda implements Serializable {
     @ManyToOne
     private Funcionario funcionario;
     private TipoPagamento tipoPagamento;
+    private int quantidadeParcelas;
+    @OneToMany
+    private List<Parcela> parcelas;
     
     public Venda(){
         itens = new ArrayList<>();
@@ -103,6 +106,22 @@ public class Venda implements Serializable {
         this.tipoPagamento = tipoPagamento;
     }
 
+    public int getQuantidadeParcelas() {
+        return quantidadeParcelas;
+    }
+
+    public void setQuantidadeParcelas(int quantidadeParcelas) {
+        this.quantidadeParcelas = quantidadeParcelas;
+    }
+
+    public List<Parcela> getParcelas() {
+        return parcelas;
+    }
+
+    public void setParcelas(List<Parcela> parcelas) {
+        this.parcelas = parcelas;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
