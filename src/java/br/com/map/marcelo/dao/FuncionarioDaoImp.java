@@ -7,7 +7,7 @@ package br.com.map.marcelo.dao;
 
 import br.com.map.marcelo.commom.exception.DAOException;
 import br.com.map.marcelo.entidades.Funcionario;
-import br.com.map.marcelo.util.JPAUtil;
+import br.com.map.marcelo.factory.JPAUtil;
 import com.sun.faces.config.WebConfiguration;
 import java.util.List;
 import javax.persistence.EntityManager;

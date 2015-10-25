@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Novo Item Produto</title>
+    </h:head>
+    <h:body>
+        <p:messages/>
+        
+        <h:form>
+            <center>
+                <h:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:panel>
+                            Novo Item Produto
+                        </p:panel>
+                    </f:facet>
+                    <p:outputLabel for="produto" value="Produto:"/>
+                    <p:selectOneMenu id="produto" value="#{itemProdutoBean.itemProduto.produto}" converter="ProdutoConverter">
+                        <f:selectItem itemLabel="Selecione"/>
+                        <f:selectItems value="#{produtoBean.listaProdutos}" var="produtoSelect" itemLabel="#{produtoSelect.descricao}" itemValue="#{produtoSelect}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel for="fornecedor" value="Fornecedor:"/>
+                    <p:selectOneMenu id="fornecedor" value="#{itemProdutoBean.itemProduto.fornecedor}" converter="FornecedorConverter">
+                        <f:selectItem itemLabel="Selecione"/>
+                        <f:selectItems value="#{fornecedorBean.listaFornecedores}" var="fornecedorSelect" itemLabel="#{fornecedorSelect.nome}" itemValue="#{fornecedorSelect}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel for="vendaAtacado" value="Valor venda atacado:"/>
+                    <p:inputText id="vendaAtacado" value="#{itemProdutoBean.itemProduto.porcentagemVendaUnidadeAtacado}"/>
+
+                    <p:outputLabel for="vendaVarejo" value="Valor venda varejo:"/>
+                    <p:inputText id="vendaVarejo" value="#{itemProdutoBean.itemProduto.porcentagemVendaUnidadeVarejo}"/>
+
+                    
+
+                    <p:outputLabel for="valorCompra" value="Valor de compra:"/>
+                    <p:inputText id="valorCompra" value="#{itemProdutoBean.itemProduto.precoCompraUnidade}"/>
+
+                    <p:outputLabel for="quantidade" value="Quantidade: "/>
+                    <p:inputText id="quantidade" value="#{itemProdutoBean.itemProduto.quantidade}"/>
+                </h:panelGrid>
+                <p:commandButton value="Salvar Item Produto" action="#{itemProdutoBean.salvarItemProduto()}" ajax="false"/>
+            </center>
+        </h:form>
+    </h:body>
+</html>

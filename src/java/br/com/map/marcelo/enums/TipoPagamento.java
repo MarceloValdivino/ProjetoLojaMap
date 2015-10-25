@@ -11,9 +11,9 @@ package br.com.map.marcelo.enums;
  */
 public enum TipoPagamento {
     
-    DINHEIRO("Dinheiro"),
-    CARTAO("Cartão"),
-    NOTA_PROMISSORIA("Nota Promissória");
+    A_VISTA("A vista"),
+    PARCELA_COM_ENTRADA("1 + Parcelas"),
+    PARCELA_A_PRAZO("Entrada + parcelas");
     
     private String tipoPagamento;
     

@@ -5,13 +5,14 @@
  */
 package br.com.map.marcelo.entidades;
 
+import br.com.map.marcelo.commom.strategy.IGeradorParcelasStrategy;
+import br.com.map.marcelo.enums.TipoItemVenda;
 import br.com.map.marcelo.enums.TipoPagamento;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,20 +24,23 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
 /**
  *
  * @author Marcelo
  */
 @Entity
 public class Venda implements Serializable {
-    
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ItemVenda> itens;
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar dataVenda;
-    private double precoTotal;
+    private Double precoTotal;
     @OneToOne
     private Cliente cliente;
     @ManyToOne
@@ -45,9 +49,17 @@ public class Venda implements Serializable {
     private int quantidadeParcelas;
     @OneToMany
     private List<Parcela> parcelas;
-    
-    public Venda(){
+    @ManyToOne
+    private ConfiguracaoPagamento configuracaoPagamento;
+    @Transient
+    private IGeradorParcelasStrategy geradorParcelasStrategy;
+
+    public Venda() {
         itens = new ArrayList<>();
+        configuracaoPagamento = new ConfiguracaoPagamento();
+        parcelas = new ArrayList<>();
+        quantidadeParcelas = 1;
+        dataVenda = Calendar.getInstance();
     }
 
     public Long getId() {
@@ -72,14 +84,6 @@ public class Venda implements Serializable {
 
     public void setDataVenda(Calendar dataVenda) {
         this.dataVenda = dataVenda;
-    }
-
-    public double getPrecoTotal() {
-        return precoTotal;
-    }
-
-    public void setPrecoTotal(double precoTotal) {
-        this.precoTotal = precoTotal;
     }
 
     public Cliente getCliente() {
@@ -121,7 +125,35 @@ public class Venda implements Serializable {
     public void setParcelas(List<Parcela> parcelas) {
         this.parcelas = parcelas;
     }
+
+    public ConfiguracaoPagamento getConfiguracaoPagamento() {
+        return configuracaoPagamento;
+    }
+
+    public void setConfiguracaoPagamento(ConfiguracaoPagamento configuracaoPagamento) {
+        this.configuracaoPagamento = configuracaoPagamento;
+    }
+
+    public void setPrecoTotal(Double precoTotal) {
+        this.precoTotal = precoTotal;
+    }
+
+    public Double getPrecoTotal() {
+        return precoTotal;
+    }
+
+    public IGeradorParcelasStrategy getGeradorParcelasStrategy() {
+        return geradorParcelasStrategy;
+    }
+
+    public void setGeradorParcelasStrategy(IGeradorParcelasStrategy geradorParcelasStrategy) {
+        this.geradorParcelasStrategy = geradorParcelasStrategy;
+    }
     
+    public void gerarParcelas(){
+        this.parcelas = geradorParcelasStrategy.geradorParcelas(precoTotal, quantidadeParcelas, tipoPagamento, funcionario, configuracaoPagamento);
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -142,5 +174,10 @@ public class Venda implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Venda{" + "id=" + id + ", itens=" + itens + ", dataVenda=" + dataVenda + ", precoTotal=" + precoTotal + ", cliente=" + cliente + ", funcionario=" + funcionario + ", tipoPagamento=" + tipoPagamento + ", quantidadeParcelas=" + quantidadeParcelas + ", parcelas=" + parcelas + ", configuracaoPagamento=" + configuracaoPagamento + ", geradorParcelas=" + geradorParcelasStrategy + '}';
     }
 }

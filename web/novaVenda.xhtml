@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <script>
+        PrimeFaces.locales['pt_BR'] = {
+            closeText: 'Fechar',
+            prevText: 'Anterior',
+            nextText: 'Próximo',
+            currentText: 'Data Atual',
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+            weekHeader: 'Semana',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Só Horas',
+            timeText: 'Tempo',
+            hourText: 'Hora',
+            minuteText: 'Minuto',
+            secondText: 'Segundo',
+            ampm: false,
+            month: 'Mês',
+            week: 'Semana',
+            day: 'Dia',
+            allDayText: 'Todo Dia'
+        };
+    </script>
+
+    <h:head>
+        <title>Cadastrar Venda</title>
+    </h:head>
+    <h:body>
+        <center>
+            <h:form id="form">
+                <center>
+                    <h:panelGrid columns="2">
+                        <f:facet name="header">
+                            <p:panel>
+                                Cadastro Nova Venda
+                            </p:panel>
+                        </f:facet>
+
+                        <p:outputLabel for="cliente" value="Cliente:"/>
+                        <p:selectOneMenu id="cliente" value="#{vendaBean.venda.cliente}">
+                            <f:selectItem itemLabel="Selecione"/>
+                            <f:selectItems value="#{clienteBean.listaDeClientes}" var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="funcionario" value="Funcionário:"/>
+                        <p:selectOneMenu id="funcionario" value="#{vendaBean.venda.cliente}">
+                            <f:selectItem itemLabel="Selecione"/>
+                            <f:selectItems value="#{funcionarioBean.listaFuncionarios}" var="funcionario" itemLabel="#{funcionario.nome}" itemValue="#{funcionario}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="pagamento" value="Tipo de Pagamento:"/>
+                        <p:selectOneMenu id="pagamento" value="#{vendaBean.venda.tipoPagamento}">
+                            <f:selectItem itemLabel="Selecione"/>
+                            <f:selectItems value="#{vendaBean.tiposDePagamento}" var="tipo" itemLabel="#{tipo.pagamento}" itemValue="#{tipo}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="parcelas" value="Quant. de Parcelas:"/>
+                        <p:inputText id="parcelas" value="#{vendaBean.venda.quantidadeParcelas}"/>
+
+                        <p:outputLabel for="configuracao" value="Conf. de Pagamento:"/>
+                        <p:selectOneMenu id="configuracao" value="#{vendaBean.venda.configuracaoPagamento}">
+                            <f:selectItem itemLabel="Selecione"/>
+                            <f:selectItems value="#{configuracaoPagamentoBean.listaDeConfiguracaoPagamento}" var="configuracao" itemLabel="#{configuracao.descricao}" itemValue="#{configuracao}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="itens" value="Itens Adicionados"/>                        
+                            <p:dataTable id="itens" value="#{vendaBean.venda.itens}" var="item" emptyMessage="Não há itens cadastrados.">
+                                <f:facet name="header">
+                                    <p:commandButton value="Adicionar Itens" onclick="PF('dlgAddItens').show(); return false;" update="form:dlgAddItens" ajax="false"/>
+                                </f:facet>
+                                <p:column headerText="Produto">
+                                    #{item.itemProduto.produto.descricao}
+                                </p:column>
+                                <p:column headerText="Quantidade">
+                                    #{item.quantidade}
+                                </p:column>
+                                <p:column headerText="Preço Unitário">
+                                    #{item.precoItem}
+                                </p:column>
+                                <p:column headerText="Valor Total">
+                                    #{(item.precoItem)*(item.quantidade)}
+                                </p:column>
+                            </p:dataTable>
+                    </h:panelGrid>
+                    <br></br>
+                    <p:commandButton value="Cadastrar Venda" action="#{vendaBean.salvarVenda()}"/>
+                </center>
+
+
+                <p:dialog widgetVar="dlgAddItens" id="dlgAddItens" header="Adicionar Itens" modal="true" resizable="false">
+                    <p:outputPanel id="panel">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel for="itemProduto" value="Item Produto"/>
+                            <p:selectOneMenu id="itemProduto" value="#{vendaBean.itemVenda.itemProduto}">
+                                <f:selectItem itemLabel="Selecione"/>
+                                <f:selectItems value="#{itemProdutoBean.listaItensProduto}" var="itemProduto" itemValue="#{itemProduto}"  itemLabel="#{itemProduto.produto.descricao},#{(itemProduto.porcentagemVendaUnidadeAtacado)*(itemProduto.precoCompraUnidade)}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="quantidade" value="Quantidade:"/>
+                            <p:inputText id="quantidade" value="#{vendaBean.itemVenda.quantidade}"/>
+
+                            <p:outputLabel for="descontoP" value="Desconto Item(%):"/>
+                            <p:inputText id="descontoP" value="#{vendaBean.itemVenda.descontoPorcentagemItem}"/>
+
+                            <p:outputLabel for="tipoItemVenda" value="Tipo de Item Venda:"/>
+                            <p:selectOneMenu id="tipoItemVenda" value="#{vendaBean.itemVenda.tipoItemVenda}">
+                                <f:selectItem itemLabel="Selecione"/>
+                                <f:selectItems value="#{vendaBean.tiposItemVenda}" var="itemVenda" itemLabel="#{itemVenda.tipoItemVenda},#{itemVenda.valorDescontoVenda}" itemValue="#{itemVenda}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </p:outputPanel>
+                    <p:commandButton value="Adicionar" actionListener="#{vendaBean.adiconarItem()}" onclick="PF('dlgAddItens').hide()" update="form:itens" ajax="false"/>
+                </p:dialog>
+            </h:form>
+        </center>
+
+    </h:body>
+</html>

@@ -4,11 +4,30 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Pagina Inicial</title>
     </h:head>
     <h:body>
-        <p:panel>
-            <p:outputLabel value="Hello World!!!"/>
-        </p:panel>
+        <h:form>
+            <p:menubar>
+                <p:submenu label="Cadastrar Novo">
+                    <p:menuitem value="Item Produto" action="novoItemProduto.jsf?faces-redirect=true"/>
+                    <p:menuitem value="Produto" action="novoProduto.jsf?faces-redirect=true"/>
+                    <p:menuitem value="Fornecedor" action="novoFornecedor.jsf?faces-redirect=true"/>
+                    <p:menuitem value="Funcionario" action="novoFuncionario.jsf?faces-redirect=true"/>
+                    <p:menuitem value="Cliente" action="novoCliente.jsf?faces-redirect=true"/>
+                    <p:menuitem value="Conf. Pagamento" action="novoConfiguracaoPagamento.jsf?faces-redirect=true"/>
+                    <p:menuitem value="Venda" action="novaVenda.jsf?faces-redirect=true"/>
+                </p:submenu>
+                <p:submenu label="Listar/Editar">
+                    <p:menuitem value="Itens Produto" action="todosItemProduto.jsf?faces-redirect=true"/>
+                    <p:menuitem value="Produtos" action="todosProdutos.jsf?faces-redirect=true"/>
+                    <p:menuitem value="Fornecedores" action="todosFornecedores.jsf?faces-redirect=true"/>
+                    <p:menuitem value="Funcionarios" action="todosFuncionarios.jsf?faces-redirect=true"/>
+                    <p:menuitem value="Clientes" action="todosClientes.jsf?faces-redirect=true"/>
+                    <p:menuitem value="Conf. de Pagamentos" action="todosConfiguracaoPagamento.jsf?faces-redirect=true"/>
+                    <p:menuitem value="Vendas" action="todasVendas.jsf?faces-redirect=true"/>
+                </p:submenu>
+            </p:menubar>
+        </h:form>
     </h:body>
 </html>

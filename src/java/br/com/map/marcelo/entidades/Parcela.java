@@ -25,12 +25,14 @@ public class Parcela implements Serializable {
     private Long id;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar vencimanto;
-    private double valorParcela;
+    private Double valorParcela;
     @OneToOne 
     private Pagamento pagamento;
-    @OneToOne 
-    private Funcionario funcionario;
 
+    public Parcela(){
+        pagamento = new Pagamento();
+    }
+    
     public Long getId() {
         return id;
     }
@@ -61,15 +63,6 @@ public class Parcela implements Serializable {
 
     public void setPagamento(Pagamento pagamento) {
         this.pagamento = pagamento;
-    }
-
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
-    }
-    
+    }   
     
 }

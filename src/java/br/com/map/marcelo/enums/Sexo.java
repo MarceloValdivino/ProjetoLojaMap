@@ -11,8 +11,8 @@ package br.com.map.marcelo.enums;
  */
 public enum Sexo {
 
-    MASCULINO("M"),
-    FEMININO("F");
+    MASCULINO("Masculino"),
+    FEMININO("Feminino");
     
     private String sexo;
     

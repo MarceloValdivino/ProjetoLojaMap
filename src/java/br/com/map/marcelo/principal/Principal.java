@@ -34,7 +34,7 @@ public class Principal {
 
     public static void main(String[] args) throws BusinessException {
         
-        Facade facade = new Facade();
+        Facade facade = Facade.getInstance();
         
         // TA FUNCIONANDO TUDO
         

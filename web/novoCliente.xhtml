@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <script>
+        PrimeFaces.locales['pt_BR'] = {
+            closeText: 'Fechar',
+            prevText: 'Anterior',
+            nextText: 'Próximo',
+            currentText: 'Data Atual',
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+            weekHeader: 'Semana',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Só Horas',
+            timeText: 'Tempo',
+            hourText: 'Hora',
+            minuteText: 'Minuto',
+            secondText: 'Segundo',
+            ampm: false,
+            month: 'Mês',
+            week: 'Semana',
+            day: 'Dia',
+            allDayText: 'Todo Dia'
+        };
+    </script>
+
+    <h:head>
+        <title>Cadastrar Cliente</title>
+    </h:head>
+    <h:body>
+        <center>
+            <h:form id="form">
+                <h:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:panel>
+                            Cadastro de Cliente
+                        </p:panel>
+                    </f:facet>
+                    <p:outputLabel for="nome" value="Nome:"/>
+                    <p:inputText id="nome" value="#{clienteBean.cliente.nome}"/>
+
+                    <p:outputLabel for="cpf" value="CPF:"/>
+                    <p:inputMask mask="999.999.999-99" id="cpf" value="#{clienteBean.cliente.cpf}"/>
+
+                    <p:outputLabel for="rg" value="RG:"/>
+                    <p:inputMask mask="9999999" id="rg" value="#{clienteBean.cliente.rg.numero}"/>
+                    
+                    <p:outputLabel for="dtExpedicao" value="Data de Expedição:"/>
+                    <p:calendar mask="99/99/9999" id="dtExpedicao" value="#{clienteBean.cliente.rg.dataExpedicao.time}"/>
+                    
+                    <p:outputLabel for="orgao" value="Orgão Expedidor:"/>
+                    <p:inputText id="orgao" value="#{clienteBean.cliente.rg.orgaoExpedidor}"/>
+
+                    <p:outputLabel for="dtNascimento" value="Data de Nascimento:"/>
+                    <p:calendar mask="99/99/9999" locale="pt_BR" id="dtNascimento" value="#{clienteBean.cliente.dataNascimento.time}"/>
+
+                    <p:outputLabel for="estadocivil" value="Estado Civil:"/>
+                    <p:selectOneMenu id="estadocivil" value="#{clienteBean.cliente.estadoCivil}">
+                        <f:selectItem itemLabel="Selecionar" itemValue=""/>
+                        <f:selectItems value="#{clienteBean.estadosCivis}" var="estadocivil" itemLabel="#{estadocivil.estadoCivil}" itemValue="#{estadocivil}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="sexo" value="Sexo:"/>
+                    <p:selectOneMenu id="sexo" value="#{clienteBean.cliente.sexo}">
+                        <f:selectItem itemLabel="Selecionar" itemValue=""/>
+                        <f:selectItems value="#{clienteBean.sexos}" var="sexo" itemLabel="#{sexo.sexo}" itemValue="#{sexo}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="rua" value="Rua:"/>
+                    <p:inputText id="rua" value="#{clienteBean.cliente.endereco.rua}"/>
+
+                    <p:outputLabel for="bairro" value="Bairro:"/>
+                    <p:inputText id="bairro" value="#{clienteBean.cliente.endereco.bairro}"/>
+
+                    <p:outputLabel for="cep" value="CEP:"/>
+                    <p:inputText id="cep" value="#{clienteBean.cliente.endereco.cep}"/>
+
+                    <p:outputLabel for="cidade" value="Cidade:"/>
+                    <p:inputText id="cidade" value="#{clienteBean.cliente.endereco.cidade}"/>
+
+                    <p:outputLabel for="estado" value="Estado:"/>
+                    <p:inputText id="estado" value="#{clienteBean.cliente.endereco.estado}"/>
+
+                    <p:outputLabel for="numero" value="Número:"/>
+                    <p:inputText id="numero" value="#{clienteBean.cliente.endereco.numero}"/>
+                </h:panelGrid>
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        Contato
+                    </f:facet>
+                    <p:outputLabel for="numeroContato" value="Número contato:"/>
+                    <p:inputMask id="numeroContato" mask="(99)99999-9999" value="#{clienteBean.contato.numero}"/>
+
+                    <p:outputLabel for="operadora" value="Operadora:"/>
+                    <p:selectOneMenu id="operadora" value="#{clienteBean.contato.operadora}">
+                        <f:selectItem itemLabel="Selecionar" itemValue=""/>
+                        <f:selectItems value="#{clienteBean.operadoras}" var="operadora" itemLabel="#{operadora.operadora}" itemValue="#{operadora}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="observacao" value="Observação:"/>
+                    <p:inputTextarea id="observacao" value="#{clienteBean.contato.observacao}"/>
+
+
+                </p:panelGrid>
+                <p:commandButton value="Adicionar" update="form:panelContatosCliente" actionListener="#{clienteBean.adicionarContato()}"/>
+                <p:outputLabel id="panelContatosCliente" style="width:  200px;">
+                    <p:dataTable value="#{clienteBean.cliente.contatos}" var="contato" id="tdContatos" rendered="#{not empty clienteBean.cliente.contatos}" style="width: 400px;">
+                        <p:column headerText="Número">
+                            #{contato.numero}
+                        </p:column>
+
+                        <p:column headerText="Operadora">
+                            #{contato.operadora.operadora}
+                        </p:column>
+
+                        <p:column headerText="Observação">
+                            #{contato.observacao}
+                        </p:column>
+                    </p:dataTable>
+                </p:outputLabel>
+                <br></br>
+                <p:commandButton value="Cadastrar Cliente" action="#{clienteBean.salvarCliente()}"/>
+            </h:form>
+        </center>
+    </h:body>
+</html>

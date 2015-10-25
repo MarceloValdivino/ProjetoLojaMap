@@ -25,6 +25,9 @@ public class Contato implements Serializable {
     private String numero;
     private Operadora operadora;
     private String observacao;
+    
+    public Contato(){
+    }
 
     public Long getId() {
         return id;

@@ -11,16 +11,16 @@ package br.com.map.marcelo.enums;
  */
 public enum TipoProduto {
     
-    ALIMENTICIO(1),
-    CASA(2);
+    ALIMENTICIO("Alimenticio"),
+    CASA("Casa");
     
-    private int tipo;
+    private String tipo;
     
-    private TipoProduto(int tipoProduto){
+    private TipoProduto(String tipoProduto){
         this.tipo = tipoProduto;
     }
     
-    public int getTipo(){
+    public String getTipo(){
         return this.tipo;
     }
 }

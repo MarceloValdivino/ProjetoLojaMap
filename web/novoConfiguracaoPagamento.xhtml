@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <script>
+        PrimeFaces.locales['pt_BR'] = {
+            closeText: 'Fechar',
+            prevText: 'Anterior',
+            nextText: 'Próximo',
+            currentText: 'Data Atual',
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+            weekHeader: 'Semana',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Só Horas',
+            timeText: 'Tempo',
+            hourText: 'Hora',
+            minuteText: 'Minuto',
+            secondText: 'Segundo',
+            ampm: false,
+            month: 'Mês',
+            week: 'Semana',
+            day: 'Dia',
+            allDayText: 'Todo Dia'
+        };
+    </script>
+
+    <h:head>
+        <title>Cadastrar Confg. Pagamento</title>
+    </h:head>
+    <h:body>
+        <center>
+            <h:form id="form">
+                <h:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:panel>
+                            Cadastro de Configuração de Pagamento
+                        </p:panel>
+                    </f:facet>
+                        <p:outputLabel for="juros" value="Juros:"/>
+                        <p:inputText id="juros" value="#{configuracaoPagamentoBean.configuracaoPagamento.juros}"/>
+                        
+                        <p:outputLabel for="desconto" value="Desconto:"/>
+                        <p:inputText id="desconto" value="#{configuracaoPagamentoBean.configuracaoPagamento.desconto}"/>
+
+                        <p:outputLabel for="multa" value="Multa:"/>
+                        <p:inputText id="multa" value="#{configuracaoPagamentoBean.configuracaoPagamento.multa}"/>
+
+                        <p:outputLabel for="descricao" value="Descrição:"/>
+                        <p:inputText id="descricao" value="#{configuracaoPagamentoBean.configuracaoPagamento.descricao}"/>
+
+                        <p:outputLabel for="tipopagamento" value="Tipo de Pagamento:"/>
+                        <p:selectOneMenu id="tipopagamento" value="#{configuracaoPagamentoBean.configuracaoPagamento.tipoPagamento}">
+                            <f:selectItem itemLabel="Selecionar" itemValue=""/>
+                            <f:selectItems value="#{configuracaoPagamentoBean.tiposDePagamento}" var="tipo" itemLabel="#{tipo.pagamento}" itemValue="#{tipo}"/>
+                        </p:selectOneMenu>
+                        <br></br>
+                </h:panelGrid>
+                <p:commandButton value="Cadastrar Confg. Pagamento" action="#{configuracaoPagamentoBean.salvarConfiguracaoPagamento()}"/>
+            </h:form>
+        </center>
+    </h:body>
+</html>

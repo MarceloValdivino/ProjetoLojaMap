@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Entrar</title>
+    </h:head>
+    <h:body>
+        <p:messages/>
+        
+        <h:form>
+            <center>
+                <h:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:panel>
+                            Entrar
+                        </p:panel>
+                    </f:facet>
+                    
+                    <p:outputLabel for="login" value="Usuário:"/>
+                    <p:inputText id="login" value="#{funcionarioBean.login}"/>
+                    
+                    <p:outputLabel for="senha" value="Senha:"/>
+                    <p:password id="senha" value="#{funcionarioBean.senha}"/>
+                </h:panelGrid>
+                <p:commandButton value="Entrar" action="#{funcionarioBean.logar()}" ajax="false"/>
+            </center>
+        </h:form>
+    </h:body>
+</html>

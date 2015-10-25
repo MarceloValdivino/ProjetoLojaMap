@@ -27,6 +27,10 @@ public class Rg implements Serializable {
     private Calendar dataExpedicao;
     private String orgaoExpedidor;
 
+    public Rg(){
+        dataExpedicao = Calendar.getInstance();
+    }
+    
     public Long getId() {
         return id;
     }

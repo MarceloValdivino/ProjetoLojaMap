@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Novo Produto</title>
+    </h:head>
+    <h:body>
+        <p:messages/>
+        <h:form>
+            <center>
+                <h:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:panel>
+                            Cadastro de Produtos
+                        </p:panel>
+                    </f:facet>
+                    <p:outputLabel for="descricao" value="Descrição:"/>
+                    <p:inputText id="descricao" value="#{produtoBean.produto.descricao}"/>
+
+                    <p:outputLabel for="tipo" value="Tipo Produto:"/>
+                    <p:selectOneMenu id="tipo" value="#{produtoBean.produto.tipoProduto}">
+                        <f:selectItem itemLabel="Selecione"/>
+                        <f:selectItems value="#{produtoBean.tiposProduto}" var="tipo" itemLabel="#{tipo.tipo}" itemValue="#{tipo}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="composicao" value="Composição:"/>
+                    <p:selectOneMenu id="composicao" value="#{produtoBean.produto.composicao}">
+                        <f:selectItem itemLabel="Selecione"/>
+                        <f:selectItems value="#{produtoBean.composicoesProduto}" var="composicao" itemLabel="#{composicao.composicao}" itemValue="#{composicao}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <p:commandButton value="Salvar Produto" action="#{produtoBean.salvarProduto()}" ajax="false"/>
+            </center>
+        </h:form>
+    </h:body>
+</html>

@@ -6,9 +6,11 @@
 package br.com.map.marcelo.facade;
 
 import br.com.map.marcelo.business.ClienteBusinessImp;
+import br.com.map.marcelo.business.ConfiguracaoPagamentoBusinessImp;
 import br.com.map.marcelo.business.FornecedorBusinessImp;
 import br.com.map.marcelo.business.FuncionarioBusinessImp;
 import br.com.map.marcelo.business.IClienteBusiness;
+import br.com.map.marcelo.business.IConfiguracaoPagamentoBusiness;
 import br.com.map.marcelo.business.IFornecedorBusiness;
 import br.com.map.marcelo.business.IFuncionarioBusiness;
 import br.com.map.marcelo.business.IItemProdutoBusiness;
@@ -20,9 +22,12 @@ import br.com.map.marcelo.business.ItemVendaBusinessImp;
 import br.com.map.marcelo.business.ProdutoBusinessImp;
 import br.com.map.marcelo.business.VendaBusinessImp;
 import br.com.map.marcelo.commom.exception.BusinessException;
+import br.com.map.marcelo.dao.ConfiguracaoPagamentoDaoImp;
+import br.com.map.marcelo.dao.IConfiguracaoPagamentoDao;
 import br.com.map.marcelo.dao.IItemVendaDao;
 import br.com.map.marcelo.dao.ItemVendaDaoImp;
 import br.com.map.marcelo.entidades.Cliente;
+import br.com.map.marcelo.entidades.ConfiguracaoPagamento;
 import br.com.map.marcelo.entidades.Fornecedor;
 import br.com.map.marcelo.entidades.Funcionario;
 import br.com.map.marcelo.entidades.ItemProduto;
@@ -48,8 +53,11 @@ public class Facade {
     private IFuncionarioBusiness funcionarioBusiness;
     private IFornecedorBusiness fornecedorBusiness;
     private IItemVendaBusiness itemVendaBusiness;
+    private IConfiguracaoPagamentoBusiness configuracaoPagamentoBusiness;
+    
+    private static final Facade facade = new Facade();
 
-    public Facade() {
+    private Facade() {
         clienteBusiness = new ClienteBusinessImp();
         produtoBusiness = new ProdutoBusinessImp();
         itemProdutoBusiness = new ItemProdutoBusinessImp();
@@ -57,7 +65,13 @@ public class Facade {
         funcionarioBusiness = new FuncionarioBusinessImp();
         fornecedorBusiness = new FornecedorBusinessImp();
         itemVendaBusiness = new ItemVendaBusinessImp();
+        configuracaoPagamentoBusiness = new ConfiguracaoPagamentoBusinessImp();
     }
+    
+    public static Facade getInstance(){
+        return facade;
+    }
+        
 
     public void salvarOuAtualizarCliente(Cliente cliente) throws BusinessException {
         clienteBusiness.salvarOuAtualizar(cliente);
@@ -176,6 +190,7 @@ public class Facade {
     }
     
     public void salvarOuAtualizarFuncionario(Funcionario funcionario) throws BusinessException {
+        funcionario.setDataCadastro(Calendar.getInstance());
         funcionarioBusiness.salvarOuAtualizar(funcionario);
     }
 
@@ -253,5 +268,25 @@ public class Facade {
 
     public List<ItemVenda> listarItemVendas() throws BusinessException {
         return itemVendaBusiness.listar();
+    }
+    
+    public void salvarOuAtualizarCliente(ConfiguracaoPagamento configuracaoPagamento) throws BusinessException {
+        configuracaoPagamentoBusiness.salvarOuAtualizar(configuracaoPagamento);
+    }
+
+    public void removerCliente(ConfiguracaoPagamento configuracaoPagamento) throws BusinessException {
+        configuracaoPagamentoBusiness.remover(configuracaoPagamento);
+    }
+
+    public ConfiguracaoPagamento buscarConfiguracaoPagamentoPeloId(Long id) throws BusinessException {
+        return configuracaoPagamentoBusiness.getById(id);
+    }
+
+    public List<ConfiguracaoPagamento> listarConfiguracaoPagamento() throws BusinessException {
+        return configuracaoPagamentoBusiness.listar();
+    }
+    
+    public void realizarVenda(Cliente cliente, Funcionario funcionario, int quantidadeParcelas, ConfiguracaoPagamento configuracaoPagamento) throws BusinessException {
+        vendaBusiness.efetuarVenda(funcionario, cliente, quantidadeParcelas, configuracaoPagamento);
     }
 }

@@ -11,16 +11,22 @@ package br.com.map.marcelo.enums;
  */
 public enum TipoItemVenda {
     
-    VAREJO("Varejo"),
-    ATACADO("Atacado");
+    VAREJO("Varejo",0),
+    ATACADO("Atacado",10.0);
     
     private String tipoItemVenda;
+    private double valorDescontoVenda;
     
-    private TipoItemVenda(String tipoItemVenda){
+    private TipoItemVenda(String tipoItemVenda, double valorDesconto){
         this.tipoItemVenda = tipoItemVenda;
+        this.valorDescontoVenda = valorDesconto;
     }
     
     public String getTipoItemVenda(){
         return tipoItemVenda;
+    }
+    
+    public double getValorDescontoVenda(){
+        return valorDescontoVenda;
     }
 }

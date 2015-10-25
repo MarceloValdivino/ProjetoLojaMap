@@ -12,6 +12,7 @@ import br.com.map.marcelo.dao.ItemProdutoImp;
 import br.com.map.marcelo.entidades.Cliente;
 import br.com.map.marcelo.entidades.Funcionario;
 import br.com.map.marcelo.entidades.ItemProduto;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,7 @@ public class ItemProdutoBusinessImp implements IItemProdutoBusiness{
 
     @Override
     public void salvarOuAtualizar(ItemProduto produto) throws BusinessException {
+        produto.setDataEntrada(Calendar.getInstance());
         try {
             if (produto.getId() != null) {
                 itemProdutoDao.update(produto);

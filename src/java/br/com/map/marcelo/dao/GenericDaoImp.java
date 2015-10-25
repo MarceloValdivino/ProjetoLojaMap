@@ -6,6 +6,7 @@
 package br.com.map.marcelo.dao;
 
 import br.com.map.marcelo.commom.exception.DAOException;
+import br.com.map.marcelo.factory.JPAUtil;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -22,18 +23,16 @@ import org.hibernate.criterion.Restrictions;
 public class GenericDaoImp<T> implements IGenericDao<T> {
 
     private Class clazz;
-    private EntityManagerFactory entityManagerFactory;
     private EntityManager manager;
 
     public GenericDaoImp() {
-        this.entityManagerFactory = Persistence.createEntityManagerFactory("MAPPU");
         this.clazz = (Class<T>) ((ParameterizedType) getClass().
                 getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
     @Override
     public void save(T o) throws DAOException {
-        manager = entityManagerFactory.createEntityManager();
+        manager = getEntityManager();
         try {
             manager.getTransaction().begin();
             manager.persist(o);
@@ -50,7 +49,7 @@ public class GenericDaoImp<T> implements IGenericDao<T> {
 
     @Override
     public T update(T o) throws DAOException {
-        manager = entityManagerFactory.createEntityManager();
+        manager = getEntityManager();
         try {
             manager.getTransaction().begin();
             o = manager.merge(o);
@@ -68,7 +67,7 @@ public class GenericDaoImp<T> implements IGenericDao<T> {
 
     @Override
     public void remove(T o) throws DAOException {
-        manager = entityManagerFactory.createEntityManager();
+        manager = getEntityManager();
         try {
             manager.getTransaction().begin();
             manager.remove(o);
@@ -86,7 +85,7 @@ public class GenericDaoImp<T> implements IGenericDao<T> {
     @Override
     public T getById(Long id) throws DAOException {
         T c = null;
-        manager = entityManagerFactory.createEntityManager();
+        manager = getEntityManager();
         try {
             Session session = (Session) manager.getDelegate();
             Criteria criteria = session.createCriteria(clazz);
@@ -105,7 +104,7 @@ public class GenericDaoImp<T> implements IGenericDao<T> {
     @Override
     public List<T> list() throws DAOException {
         List<T> lista = null;
-        manager = entityManagerFactory.createEntityManager();
+        manager = getEntityManager();
         try {
             Session session = (Session) manager.getDelegate();
             Criteria criteria = session.createCriteria(clazz);
@@ -131,7 +130,7 @@ public class GenericDaoImp<T> implements IGenericDao<T> {
     @Override
     public EntityManager getEntityManager() throws DAOException {
         try{
-            manager = entityManagerFactory.createEntityManager();
+            manager = JPAUtil.getEntityManager();
         } catch (Exception e){
             e.printStackTrace();
             throw new DAOException("Erro ao criar EntityManager");

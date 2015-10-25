@@ -7,6 +7,7 @@ package br.com.map.marcelo.business;
 
 import br.com.map.marcelo.commom.exception.BusinessException;
 import br.com.map.marcelo.entidades.Cliente;
+import br.com.map.marcelo.entidades.ConfiguracaoPagamento;
 import br.com.map.marcelo.entidades.Funcionario;
 import br.com.map.marcelo.entidades.ItemProduto;
 import br.com.map.marcelo.entidades.ItemVenda;
@@ -50,4 +51,6 @@ public interface IVendaBusiness {
     public double valorTotalComprar(Cliente cliente) throws BusinessException;
     
     public List<Venda> listarVendasFuncionarioStatus(boolean status) throws BusinessException;
+    
+    public void efetuarVenda(Funcionario funcionario, Cliente cliente, int quantidadeParcelas, ConfiguracaoPagamento configuracaoPagamento) throws BusinessException;
 }
