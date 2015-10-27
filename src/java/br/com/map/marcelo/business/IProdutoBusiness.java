@@ -18,6 +18,8 @@ public interface IProdutoBusiness {
     public void salvarOuAtualizar(Produto produto) throws BusinessException;
 
     public void remover(Produto produto) throws BusinessException;
+    
+    public void remover(List<Produto> produtos) throws BusinessException;
 
     public Produto getById(Long id) throws BusinessException;
 

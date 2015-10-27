@@ -39,7 +39,6 @@ public class GenericDaoImp<T> implements IGenericDao<T> {
             manager.getTransaction().commit();
         } catch (Exception e) {
             manager.getTransaction().rollback();
-            e.printStackTrace();
             // Mudar para arquivos de Propriedades
             throw new DAOException("Erro ao salvar objeto no banco de dados.");
         } finally {
@@ -56,7 +55,6 @@ public class GenericDaoImp<T> implements IGenericDao<T> {
             manager.getTransaction().commit();
         } catch (Exception e) {
             manager.getTransaction().rollback();
-            e.printStackTrace();
             // Mudar para arquivos de Propriedades
             throw new DAOException("Erro ao atualizar objeto no banco de dados.");
         } finally {
@@ -70,11 +68,11 @@ public class GenericDaoImp<T> implements IGenericDao<T> {
         manager = getEntityManager();
         try {
             manager.getTransaction().begin();
-            manager.remove(o);
+            Object c = manager.merge(o);
+            manager.remove(c);
             manager.getTransaction().commit();
         } catch (Exception e) {
             manager.getTransaction().rollback();
-            e.printStackTrace();
             // Mudar para arquivos de Propriedades
             throw new DAOException("Erro ao remover objeto no banco de dados.");
         } finally {
@@ -94,7 +92,6 @@ public class GenericDaoImp<T> implements IGenericDao<T> {
             session.close();
         } catch (Exception e) {
             manager.getTransaction().rollback();
-            e.printStackTrace();
             // Mudar para arquivos de Propriedades
             throw new DAOException("Erro ao buscar objeto no banco de dados.");
         }
@@ -122,7 +119,6 @@ public class GenericDaoImp<T> implements IGenericDao<T> {
         try{
             return ((Session) manager.getDelegate()).createCriteria(clazz);
         } catch(Exception e){
-            e.printStackTrace();
             throw new DAOException("Erro ao tentar criar Criteria");
         }
     }
@@ -132,7 +128,6 @@ public class GenericDaoImp<T> implements IGenericDao<T> {
         try{
             manager = JPAUtil.getEntityManager();
         } catch (Exception e){
-            e.printStackTrace();
             throw new DAOException("Erro ao criar EntityManager");
         }
         return manager;

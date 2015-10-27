@@ -19,6 +19,8 @@ public interface IClienteBusiness {
     public void salvarOuAtualizar(Cliente cliente) throws BusinessException;
 
     public void remover(Cliente cliente) throws BusinessException;
+    
+    public void remover(List<Cliente> cliente) throws BusinessException;
 
     public Cliente getById(Long id) throws BusinessException;
 

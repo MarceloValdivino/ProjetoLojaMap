@@ -47,6 +47,17 @@ public class FornecedorBusinessImp implements IFornecedorBusiness {
             throw new BusinessException(e.getMessage());
         }
     }
+    
+    public void remover(List<Fornecedor> fornecedores) throws BusinessException{
+        try{
+            for(Fornecedor f : fornecedores){
+                fornecedorDao.remove(f);
+            }
+        }catch (DAOException e){
+            e.printStackTrace();
+            throw new BusinessException(e.getMessage());
+        }
+    }
 
     @Override
     public Fornecedor getById(Long id) throws BusinessException {

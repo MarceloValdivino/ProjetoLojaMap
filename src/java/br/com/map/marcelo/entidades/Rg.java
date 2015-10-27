@@ -7,6 +7,7 @@ package br.com.map.marcelo.entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -61,6 +62,28 @@ public class Rg implements Serializable {
 
     public void setOrgaoExpedidor(String orgaoExpedidor) {
         this.orgaoExpedidor = orgaoExpedidor;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Rg other = (Rg) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
     
     

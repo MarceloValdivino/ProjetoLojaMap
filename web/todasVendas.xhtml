@@ -9,24 +9,31 @@
         <title>Lista de Clientes</title>
     </h:head>
     <h:body>
-        <p:dataTable var="venda" value="#{vendaBean.listaDeVendas}">
-            <p:column headerText="Cliente">
-                #{venda.cliente.nome}
-            </p:column>
+        <h:form id="form">
+            <p:dataTable id="tableVendas" var="venda" value="#{vendaBean.listaDeVendas}" selection="#{vendaBean.listaDeVendasSelecionadas}"
+                         rowKey="#{venda.id}">
+                <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                <p:column headerText="Cliente">
+                    #{venda.cliente.nome}
+                </p:column>
 
-            <p:column headerText="Funcionario">
-                #{venda.funcionario.nome}
-            </p:column>
-            
-            <p:column headerText="Data de Venda">
-                #{venda.dataVenda}
-            </p:column>
+                <p:column headerText="Funcionario">
+                    #{venda.funcionario.nome}
+                </p:column>
 
-            <p:column headerText="Data Cadastro">
-                <p:outputLabel value="#{cliente.dataCadastro.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy hh:MM:ss" locale="pt_BR" />
-                </p:outputLabel>
-            </p:column>
+                <p:column headerText="Data de Venda">
+                    #{venda.dataVenda}
+                </p:column>
+
+                <p:column headerText="Data Cadastro">
+                    <p:outputLabel value="#{cliente.dataCadastro.time}">
+                        <f:convertDateTime pattern="dd/MM/yyyy hh:MM:ss" locale="pt_BR" />
+                    </p:outputLabel>
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton value="Remover Selecionados" actionListener="#{vendaBean.removerSelecionadas()}" update="tableVendas"/>
+            </f:facet>
         </p:dataTable>
-    </h:body>
+    </h:form>
+</h:body>
 </html>

@@ -8,7 +8,7 @@
         <title>Novo Item Produto</title>
     </h:head>
     <h:body>
-        <p:messages/>
+        <p:messages autoUpdate="true" closable="true"/>
         
         <h:form>
             <center>
@@ -19,30 +19,30 @@
                         </p:panel>
                     </f:facet>
                     <p:outputLabel for="produto" value="Produto:"/>
-                    <p:selectOneMenu id="produto" value="#{itemProdutoBean.itemProduto.produto}" converter="ProdutoConverter">
+                    <p:selectOneMenu id="produto" value="#{itemProdutoBean.itemProduto.produto}" converter="ProdutoConverter" required="true" requiredMessage="Insira o produto.">
                         <f:selectItem itemLabel="Selecione"/>
                         <f:selectItems value="#{produtoBean.listaProdutos}" var="produtoSelect" itemLabel="#{produtoSelect.descricao}" itemValue="#{produtoSelect}"/>
                     </p:selectOneMenu>
                     
                     <p:outputLabel for="fornecedor" value="Fornecedor:"/>
-                    <p:selectOneMenu id="fornecedor" value="#{itemProdutoBean.itemProduto.fornecedor}" converter="FornecedorConverter">
+                    <p:selectOneMenu id="fornecedor" value="#{itemProdutoBean.itemProduto.fornecedor}" converter="FornecedorConverter"  required="true" requiredMessage="Insira o fornecedor." converterMessage="Erro ao selecionar fornecedor.">
                         <f:selectItem itemLabel="Selecione"/>
                         <f:selectItems value="#{fornecedorBean.listaFornecedores}" var="fornecedorSelect" itemLabel="#{fornecedorSelect.nome}" itemValue="#{fornecedorSelect}"/>
                     </p:selectOneMenu>
                     
                     <p:outputLabel for="vendaAtacado" value="Valor venda atacado:"/>
-                    <p:inputText id="vendaAtacado" value="#{itemProdutoBean.itemProduto.porcentagemVendaUnidadeAtacado}"/>
+                    <p:inputText id="vendaAtacado" value="#{itemProdutoBean.itemProduto.porcentagemVendaUnidadeAtacado}"  required="true" requiredMessage="Insira o preço de venda unidade atacado."/>
 
                     <p:outputLabel for="vendaVarejo" value="Valor venda varejo:"/>
-                    <p:inputText id="vendaVarejo" value="#{itemProdutoBean.itemProduto.porcentagemVendaUnidadeVarejo}"/>
+                    <p:inputText id="vendaVarejo" value="#{itemProdutoBean.itemProduto.porcentagemVendaUnidadeVarejo}" required="true" requiredMessage="Insira o preço de venda unidade varejo."/>
 
                     
 
                     <p:outputLabel for="valorCompra" value="Valor de compra:"/>
-                    <p:inputText id="valorCompra" value="#{itemProdutoBean.itemProduto.precoCompraUnidade}"/>
+                    <p:inputText id="valorCompra" value="#{itemProdutoBean.itemProduto.precoCompraUnidade}" required="true" requiredMessage="Insira o preço de compra unidade."/>
 
                     <p:outputLabel for="quantidade" value="Quantidade: "/>
-                    <p:inputText id="quantidade" value="#{itemProdutoBean.itemProduto.quantidade}"/>
+                    <p:inputText id="quantidade" value="#{itemProdutoBean.itemProduto.quantidade}" required="true" requiredMessage="Insira a quantidade."/>
                 </h:panelGrid>
                 <p:commandButton value="Salvar Item Produto" action="#{itemProdutoBean.salvarItemProduto()}" ajax="false"/>
             </center>

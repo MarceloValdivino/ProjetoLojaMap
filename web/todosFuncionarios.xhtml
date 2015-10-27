@@ -9,20 +9,27 @@
         <title>Lista de Fornecedores</title>
     </h:head>
     <h:body>
-        <p:dataTable var="funcionario" value="#{funcionarioBean.listaFuncionarios}">
-            <p:column headerText="CNPJ">
-                #{funcionario.cpf}
-            </p:column>
+        <h:form>
+            <p:dataTable var="funcionario" value="#{funcionarioBean.listaFuncionarios}"
+                         rowKey="#{funcionario.id}" selection="#{funcionarioBean.listaFuncionariosSelecionados}">
+                <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                <p:column headerText="CNPJ">
+                    #{funcionario.cpf}
+                </p:column>
 
-            <p:column headerText="Nome">
-                #{funcionario.nome}
-            </p:column>
+                <p:column headerText="Nome">
+                    #{funcionario.nome}
+                </p:column>
 
-            <p:column headerText="Data Cadastro">
-                <p:outputLabel value="#{funcionario.dataCadastro.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy hh:MM:ss" locale="pt_BR" />
-                </p:outputLabel>
-            </p:column>
-        </p:dataTable>
+                <p:column headerText="Data Cadastro">
+                    <p:outputLabel value="#{funcionario.dataCadastro.time}">
+                        <f:convertDateTime pattern="dd/MM/yyyy hh:MM:ss" locale="pt_BR" />
+                    </p:outputLabel>
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton value="Remover Selecionados" action="#{funcionarioBean.removerFuncionarios()}"/>
+                </f:facet>
+            </p:dataTable>
+        </h:form>
     </h:body>
 </html>

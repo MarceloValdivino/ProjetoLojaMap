@@ -33,7 +33,6 @@ public class ProdutoBusinessImp implements IProdutoBusiness {
                 produtoDao.save(produto);
             }
         } catch (DAOException e) {
-            e.printStackTrace();
             throw new BusinessException(e.getMessage());
         }
     }
@@ -49,11 +48,21 @@ public class ProdutoBusinessImp implements IProdutoBusiness {
     }
 
     @Override
+    public void remover(List<Produto> produtos) throws BusinessException {
+        try {
+            for (Produto produto : produtos) {
+                produtoDao.remove(produto);
+            }
+        } catch (DAOException e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @Override
     public Produto getById(Long id) throws BusinessException {
         try {
             return produtoDao.getById(id);
         } catch (DAOException e) {
-            e.printStackTrace();
             throw new BusinessException(e.getMessage());
         }
     }
@@ -63,7 +72,6 @@ public class ProdutoBusinessImp implements IProdutoBusiness {
         try {
             return produtoDao.list();
         } catch (DAOException e) {
-            e.printStackTrace();
             throw new BusinessException(e.getMessage());
         }
     }

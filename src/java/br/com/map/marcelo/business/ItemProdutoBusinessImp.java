@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author Marcelo
  */
-public class ItemProdutoBusinessImp implements IItemProdutoBusiness{
+public class ItemProdutoBusinessImp implements IItemProdutoBusiness {
 
     private IItemProdutoDao itemProdutoDao;
 
@@ -48,6 +48,18 @@ public class ItemProdutoBusinessImp implements IItemProdutoBusiness{
     public void remover(ItemProduto produto) throws BusinessException {
         try {
             itemProdutoDao.remove(produto);
+        } catch (DAOException e) {
+            e.printStackTrace();
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void remover(List<ItemProduto> produtos) throws BusinessException {
+        try {
+            for (ItemProduto produto : produtos) {
+                itemProdutoDao.remove(produto);
+            }
         } catch (DAOException e) {
             e.printStackTrace();
             throw new BusinessException(e.getMessage());

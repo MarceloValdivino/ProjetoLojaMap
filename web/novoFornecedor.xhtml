@@ -8,34 +8,33 @@
         <title>Cadastrar Fornecedor</title>
     </h:head>
     <h:body>
-        <p:messages/>
-        
         <h:form>
             <center>
+                <p:messages autoUpdate="true" closable="true"/>
                 <h:panelGrid columns="2">
                     <p:outputLabel for="nome" value="Nome:"/>
-                    <p:inputText id="nome" value="#{fornecedorBean.fornecedor.nome}"/>
-                    
+                    <p:inputText id="nome" value="#{fornecedorBean.fornecedor.nome}" required="true" requiredMessage="Insira o nome do fornecedor."/>
+
                     <p:outputLabel for="cnpj" value="CNPJ:"/>
-                    <p:inputMask id="cnpj" mask="99.999.999/9999-99" value="#{fornecedorBean.fornecedor.cnpj}"/>
-                    
+                    <p:inputMask id="cnpj" mask="99.999.999/9999-99" value="#{fornecedorBean.fornecedor.cnpj}" required="true" requiredMessage="Insira o cnpj do fornecedor."/>
+
                     <p:outputLabel for="rua" value="Rua:"/>
-                    <p:inputText id="rua" value="#{fornecedorBean.fornecedor.endereco.rua}"/>
-                    
+                    <p:inputText id="rua" value="#{fornecedorBean.fornecedor.endereco.rua}" required="true" requiredMessage="Insira o rua do fornecedor."/>
+
                     <p:outputLabel for="cep" value="CEP:"/>
-                    <p:inputMask id="cep" mask="99.999-999" value="#{fornecedorBean.fornecedor.endereco.cep}"/>
-                    
+                    <p:inputMask id="cep" mask="99.999-999" value="#{fornecedorBean.fornecedor.endereco.cep}" required="true" requiredMessage="Insira o CEP do fornecedor."/>
+
                     <p:outputLabel for="numero" value="Número"/>
-                    <p:inputText id="numero" value="#{fornecedorBean.fornecedor.endereco.numero}"/>
-                    
+                    <p:inputText id="numero" value="#{fornecedorBean.fornecedor.endereco.numero}" required="true" requiredMessage="Insira o número do fornecedor."/>
+
                     <p:outputLabel for="bairro" value="Bairro:"/>
-                    <p:inputText id="bairro" value="#{fornecedorBean.fornecedor.endereco.bairro}"/>
-                    
+                    <p:inputText id="bairro" value="#{fornecedorBean.fornecedor.endereco.bairro}" required="true" requiredMessage="Insira o bairro do fornecedor."/>
+
                     <p:outputLabel for="cidade" value="Cidade:"/>
-                    <p:inputText id="cidade" value="#{fornecedorBean.fornecedor.endereco.cidade}"/>
-                    
+                    <p:inputText id="cidade" value="#{fornecedorBean.fornecedor.endereco.cidade}" required="true" requiredMessage="Insira o cidade do fornecedor."/>
+
                     <p:outputLabel for="estado" value="Estado:"/>
-                    <p:inputText id="estado" value="#{fornecedorBean.fornecedor.endereco.estado}"/>
+                    <p:inputText id="estado" value="#{fornecedorBean.fornecedor.endereco.estado}" required="true" requiredMessage="Insira o estado do fornecedor."/>
                 </h:panelGrid>
                 <p:commandButton value="Cadastrar Fornecedor" action="#{fornecedorBean.salvarFornecedor()}"/>
             </center>

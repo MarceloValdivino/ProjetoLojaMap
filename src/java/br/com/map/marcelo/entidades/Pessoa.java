@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,7 +45,7 @@ public class Pessoa implements Serializable {
     private boolean status;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar dataNascimento;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Contato> contatos;
 
     public Pessoa(){

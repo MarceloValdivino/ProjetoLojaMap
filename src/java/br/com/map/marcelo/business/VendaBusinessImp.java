@@ -73,6 +73,18 @@ public class VendaBusinessImp implements IVendaBusiness {
     }
 
     @Override
+    public void remover(List<Venda> vendas) throws BusinessException {
+        try {
+            for (Venda venda : vendas) {
+                vendaDao.remove(venda);
+            }
+        } catch (DAOException e) {
+            e.printStackTrace();
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @Override
     public Venda getById(Long id) throws BusinessException {
         try {
             return vendaDao.getById(id);

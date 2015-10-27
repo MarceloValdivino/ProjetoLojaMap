@@ -39,6 +39,8 @@ import br.com.map.marcelo.enums.TipoPagamento;
 import com.lowagie.text.ListItem;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -54,7 +56,7 @@ public class Facade {
     private IFornecedorBusiness fornecedorBusiness;
     private IItemVendaBusiness itemVendaBusiness;
     private IConfiguracaoPagamentoBusiness configuracaoPagamentoBusiness;
-    
+
     private static final Facade facade = new Facade();
 
     private Facade() {
@@ -67,11 +69,10 @@ public class Facade {
         itemVendaBusiness = new ItemVendaBusinessImp();
         configuracaoPagamentoBusiness = new ConfiguracaoPagamentoBusinessImp();
     }
-    
-    public static Facade getInstance(){
+
+    public static Facade getInstance() {
         return facade;
     }
-        
 
     public void salvarOuAtualizarCliente(Cliente cliente) throws BusinessException {
         clienteBusiness.salvarOuAtualizar(cliente);
@@ -121,7 +122,7 @@ public class Facade {
         itemProdutoBusiness.salvarOuAtualizar(itemProduto);
     }
 
-    public void removerProduto(ItemProduto produto) throws BusinessException {
+    public void removerItemProduto(ItemProduto produto) throws BusinessException {
         itemProdutoBusiness.remover(produto);
     }
 
@@ -132,12 +133,12 @@ public class Facade {
     public List<ItemProduto> listarItemProdutos() throws BusinessException {
         return itemProdutoBusiness.listar();
     }
-    
+
     public void salvarOuAtualizarVenda(Venda venda) throws BusinessException {
         vendaBusiness.salvarOuAtualizar(venda);
     }
 
-    public void removerProduto(Venda venda) throws BusinessException {
+    public void removerVenda(Venda venda) throws BusinessException {
         vendaBusiness.remover(venda);
     }
 
@@ -148,47 +149,47 @@ public class Facade {
     public List<Venda> listarVendas() throws BusinessException {
         return vendaBusiness.listar();
     }
-    
-    public List<Venda> listarVendasPorFuncionario(Funcionario funcionario) throws BusinessException{
+
+    public List<Venda> listarVendasPorFuncionario(Funcionario funcionario) throws BusinessException {
         return vendaBusiness.listaVendasPorFuncionario(funcionario);
     }
-    
-    public List<Venda> listarVendasPorData(Calendar data) throws BusinessException{
+
+    public List<Venda> listarVendasPorData(Calendar data) throws BusinessException {
         return vendaBusiness.listarPorData(data);
     }
-    
-    public List<Venda> listarVendasPorItemProduto(ItemProduto itemProduto) throws BusinessException{
+
+    public List<Venda> listarVendasPorItemProduto(ItemProduto itemProduto) throws BusinessException {
         return vendaBusiness.listarPorItemProduto(itemProduto);
     }
-    
-    public List<Venda> listarVendasEntreDatas(Calendar dataInicial, Calendar dataFinal) throws BusinessException{
+
+    public List<Venda> listarVendasEntreDatas(Calendar dataInicial, Calendar dataFinal) throws BusinessException {
         return vendaBusiness.listarPorPeriodo(dataInicial, dataFinal);
     }
-    
-    public List<Venda> listarVendasPorTipoPagamento(TipoPagamento tipoPagamento) throws BusinessException{
+
+    public List<Venda> listarVendasPorTipoPagamento(TipoPagamento tipoPagamento) throws BusinessException {
         return vendaBusiness.listarPorTipoPagamento(tipoPagamento);
     }
-    
-    public List<ItemVenda> listarItemVendaPorTipoItemVenda(TipoItemVenda tipoItemVenda) throws BusinessException{
+
+    public List<ItemVenda> listarItemVendaPorTipoItemVenda(TipoItemVenda tipoItemVenda) throws BusinessException {
         return itemVendaBusiness.listarPorTipoVenda(tipoItemVenda);
     }
-    
-    public List<Venda> listarVendasPorDesconto(boolean desconto) throws BusinessException{
+
+    public List<Venda> listarVendasPorDesconto(boolean desconto) throws BusinessException {
         return vendaBusiness.listarVendasComDesconto(desconto);
     }
-    
-    public double apuradoVendasDoMes(Calendar data) throws BusinessException{
+
+    public double apuradoVendasDoMes(Calendar data) throws BusinessException {
         return vendaBusiness.aputadoMes(data);
     }
-    
-    public double totalDescontosMesVendas(Calendar data) throws BusinessException{
+
+    public double totalDescontosMesVendas(Calendar data) throws BusinessException {
         return vendaBusiness.totalDescontosMes(data);
     }
-    
-    public double descontoCompraCliente(Cliente cliente) throws BusinessException{
+
+    public double descontoCompraCliente(Cliente cliente) throws BusinessException {
         return vendaBusiness.valorDescontoCompraCliente(cliente);
     }
-    
+
     public void salvarOuAtualizarFuncionario(Funcionario funcionario) throws BusinessException {
         funcionario.setDataCadastro(Calendar.getInstance());
         funcionarioBusiness.salvarOuAtualizar(funcionario);
@@ -205,19 +206,19 @@ public class Facade {
     public List<Funcionario> listarFuncionarios() throws BusinessException {
         return funcionarioBusiness.listar();
     }
-    
-    public List<Funcionario> listarFuncionariosPorVenderDesconto(boolean status) throws BusinessException{
+
+    public List<Funcionario> listarFuncionariosPorVenderDesconto(boolean status) throws BusinessException {
         return funcionarioBusiness.listarPorVenderDesconto(status);
     }
-    
-    public List<Funcionario> listarFuncionariosPorStatus(boolean status) throws BusinessException{
+
+    public List<Funcionario> listarFuncionariosPorStatus(boolean status) throws BusinessException {
         return funcionarioBusiness.listarPorStatus(status);
     }
-    
+
     public Funcionario buscarFuncionarioPeloCpf(String cpf) throws BusinessException {
         return funcionarioBusiness.getByCpf(cpf);
     }
-    
+
     public void salvarOuAtualizarFornecedor(Fornecedor fornecedor) throws BusinessException {
         fornecedorBusiness.salvarOuAtualizar(fornecedor);
     }
@@ -233,32 +234,32 @@ public class Facade {
     public List<Fornecedor> listarFornecedores() throws BusinessException {
         return fornecedorBusiness.listar();
     }
-    
-    public List<ItemProduto> listarItemProdutosVendidosPorFuncionario(Funcionario funcionario) throws BusinessException{
+
+    public List<ItemProduto> listarItemProdutosVendidosPorFuncionario(Funcionario funcionario) throws BusinessException {
         return itemProdutoBusiness.listarVendidosPorFuncionario(funcionario);
     }
-    
-    public List<ItemProduto> listarItemProdutosCompradosPorCliente(Cliente cliente) throws BusinessException{
+
+    public List<ItemProduto> listarItemProdutosCompradosPorCliente(Cliente cliente) throws BusinessException {
         return itemProdutoBusiness.listarPorCompraCliente(cliente);
     }
-    
-    public double totalValorComprasCliente(Cliente cliente) throws BusinessException{
+
+    public double totalValorComprasCliente(Cliente cliente) throws BusinessException {
         return vendaBusiness.valorTotalComprar(cliente);
     }
-    
-    public List<Cliente> listarCompraClientePorItemProduto(ItemProduto itemProduto) throws BusinessException{
+
+    public List<Cliente> listarCompraClientePorItemProduto(ItemProduto itemProduto) throws BusinessException {
         return clienteBusiness.listarPorComprarItemProduto(itemProduto);
     }
-    
-    public List<Venda> listarVendasPorFuncionarioPeloStatus(boolean status) throws BusinessException{
+
+    public List<Venda> listarVendasPorFuncionarioPeloStatus(boolean status) throws BusinessException {
         return vendaBusiness.listarVendasFuncionarioStatus(status);
     }
-    
+
     public void salvarOuAtualizarItemVenda(ItemVenda itemVenda) throws BusinessException {
         itemVendaBusiness.salvarOuAtualizar(itemVenda);
     }
 
-    public void removerCliente(ItemVenda itemVenda) throws BusinessException {
+    public void removerItemVenda(ItemVenda itemVenda) throws BusinessException {
         itemVendaBusiness.remover(itemVenda);
     }
 
@@ -269,12 +270,12 @@ public class Facade {
     public List<ItemVenda> listarItemVendas() throws BusinessException {
         return itemVendaBusiness.listar();
     }
-    
-    public void salvarOuAtualizarCliente(ConfiguracaoPagamento configuracaoPagamento) throws BusinessException {
+
+    public void salvarOuAtualizarConfiguracaoPagamento(ConfiguracaoPagamento configuracaoPagamento) throws BusinessException {
         configuracaoPagamentoBusiness.salvarOuAtualizar(configuracaoPagamento);
     }
 
-    public void removerCliente(ConfiguracaoPagamento configuracaoPagamento) throws BusinessException {
+    public void removerConfiguracaoPagamento(ConfiguracaoPagamento configuracaoPagamento) throws BusinessException {
         configuracaoPagamentoBusiness.remover(configuracaoPagamento);
     }
 
@@ -285,8 +286,36 @@ public class Facade {
     public List<ConfiguracaoPagamento> listarConfiguracaoPagamento() throws BusinessException {
         return configuracaoPagamentoBusiness.listar();
     }
-    
+
     public void realizarVenda(Cliente cliente, Funcionario funcionario, int quantidadeParcelas, ConfiguracaoPagamento configuracaoPagamento) throws BusinessException {
         vendaBusiness.efetuarVenda(funcionario, cliente, quantidadeParcelas, configuracaoPagamento);
+    }
+
+    public void removerProdutos(List<Produto> produtos) throws BusinessException {
+        produtoBusiness.remover(produtos);
+    }
+
+    public void removerItemProdutos(List<ItemProduto> produtos) throws BusinessException {
+        itemProdutoBusiness.remover(produtos);
+    }
+
+    public void removerFornecedores(List<Fornecedor> lista) throws BusinessException {
+        fornecedorBusiness.remover(lista);
+    }
+
+    public void removerFuncionarios(List<Funcionario> lista) throws BusinessException {
+        funcionarioBusiness.remover(lista);
+    }
+
+    public void removerConfiguracaoPagamento(List<ConfiguracaoPagamento> listaDeConfiguracaoPagamentoSelecionados) throws BusinessException {
+        configuracaoPagamentoBusiness.remover(listaDeConfiguracaoPagamentoSelecionados);
+    }
+    
+    public void removerCliente(List<Cliente> lista) throws BusinessException {
+        clienteBusiness.remover(lista);
+    }
+    
+    public void removerVendas(List<Venda> lista) throws BusinessException{
+        vendaBusiness.remover(lista);
     }
 }

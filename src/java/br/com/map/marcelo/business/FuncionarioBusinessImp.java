@@ -17,13 +17,13 @@ import java.util.List;
  * @author Marcelo
  */
 public class FuncionarioBusinessImp implements IFuncionarioBusiness {
-    
+
     private IFuncionarioDao funcionarioDao;
-    
+
     public FuncionarioBusinessImp() {
         funcionarioDao = new FuncionarioDaoImp();
     }
-    
+
     @Override
     public void salvarOuAtualizar(Funcionario funcionario) throws BusinessException {
         try {
@@ -37,7 +37,7 @@ public class FuncionarioBusinessImp implements IFuncionarioBusiness {
             throw new BusinessException(e.getMessage());
         }
     }
-    
+
     @Override
     public void remover(Funcionario funcionario) throws BusinessException {
         try {
@@ -47,7 +47,19 @@ public class FuncionarioBusinessImp implements IFuncionarioBusiness {
             throw new BusinessException(e.getMessage());
         }
     }
-    
+
+    @Override
+    public void remover(List<Funcionario> funcionarios) throws BusinessException {
+        try {
+            for (Funcionario funcionario : funcionarios) {
+                funcionarioDao.remove(funcionario);
+            }
+        } catch (DAOException e) {
+            e.printStackTrace();
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
     @Override
     public Funcionario getById(Long id) throws BusinessException {
         try {
@@ -57,12 +69,12 @@ public class FuncionarioBusinessImp implements IFuncionarioBusiness {
             throw new BusinessException(e.getMessage());
         }
     }
-    
+
     @Override
     public List<Funcionario> listar() throws BusinessException {
-        try{
+        try {
             return funcionarioDao.list();
-        }catch(DAOException e){
+        } catch (DAOException e) {
             e.printStackTrace();
             throw new BusinessException(e.getMessage());
         }
@@ -70,9 +82,9 @@ public class FuncionarioBusinessImp implements IFuncionarioBusiness {
 
     @Override
     public List<Funcionario> listarPorVenderDesconto(boolean desconto) throws BusinessException {
-        try{
+        try {
             return funcionarioDao.listarPorVenderDesconto(desconto);
-        }catch(DAOException e){
+        } catch (DAOException e) {
             e.printStackTrace();
             throw new BusinessException(e.getMessage());
         }
@@ -80,9 +92,9 @@ public class FuncionarioBusinessImp implements IFuncionarioBusiness {
 
     @Override
     public List<Funcionario> listarPorStatus(boolean status) throws BusinessException {
-        try{
+        try {
             return funcionarioDao.listarPorStatus(status);
-        }catch(DAOException e){
+        } catch (DAOException e) {
             e.printStackTrace();
             throw new BusinessException(e.getMessage());
         }
@@ -90,9 +102,9 @@ public class FuncionarioBusinessImp implements IFuncionarioBusiness {
 
     @Override
     public Funcionario getByCpf(String cpf) throws BusinessException {
-        try{
+        try {
             return funcionarioDao.getByCpf(cpf);
-        }catch(DAOException e){
+        } catch (DAOException e) {
             e.printStackTrace();
             throw new BusinessException(e.getMessage());
         }

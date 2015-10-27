@@ -9,20 +9,27 @@
         <title>Lista de Clientes</title>
     </h:head>
     <h:body>
-        <p:dataTable var="cliente" value="#{clienteBean.listaDeClientes}">
-            <p:column headerText="CNPJ">
-                #{cliente.cpf}
-            </p:column>
+        <h:form id="form">
+            <p:dataTable id="tableClientes" var="cliente" value="#{clienteBean.listaDeClientes}"
+                         rowKey="#{cliente.id}" selection="#{clienteBean.listaDeClientesSelecionados}">
+                <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                <p:column headerText="CNPJ">
+                    #{cliente.cpf}
+                </p:column>
 
-            <p:column headerText="Nome">
-                #{cliente.nome}
-            </p:column>
+                <p:column headerText="Nome">
+                    #{cliente.nome}
+                </p:column>
 
-            <p:column headerText="Data Cadastro">
-                <p:outputLabel value="#{cliente.dataCadastro.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy hh:MM:ss" locale="pt_BR" />
-                </p:outputLabel>
-            </p:column>
+                <p:column headerText="Data Cadastro">
+                    <p:outputLabel value="#{cliente.dataCadastro.time}">
+                        <f:convertDateTime pattern="dd/MM/yyyy hh:MM:ss" locale="pt_BR" />
+                    </p:outputLabel>
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton value="Remover Selecionados" action="#{clienteBean.removerSelecionados()}"/>
+            </f:facet>
         </p:dataTable>
-    </h:body>
+    </h:form>
+</h:body>
 </html>

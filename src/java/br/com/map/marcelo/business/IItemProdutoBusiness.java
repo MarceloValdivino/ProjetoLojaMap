@@ -20,6 +20,8 @@ public interface IItemProdutoBusiness {
     public void salvarOuAtualizar(ItemProduto itemProduto) throws BusinessException;
 
     public void remover(ItemProduto itemProduto) throws BusinessException;
+    
+    public void remover(List<ItemProduto> itensProduto) throws BusinessException;
 
     public ItemProduto getById(Long id) throws BusinessException;
 

@@ -18,11 +18,11 @@ import java.util.List;
 public class ConfiguracaoPagamentoBusinessImp implements IConfiguracaoPagamentoBusiness {
 
     private ConfiguracaoPagamentoDaoImp configuracaoPagamentoDaoImp;
-    
-    public ConfiguracaoPagamentoBusinessImp(){
+
+    public ConfiguracaoPagamentoBusinessImp() {
         configuracaoPagamentoDaoImp = new ConfiguracaoPagamentoDaoImp();
     }
-    
+
     @Override
     public void salvarOuAtualizar(ConfiguracaoPagamento configuracaoPagamento) throws BusinessException {
         try {
@@ -41,6 +41,18 @@ public class ConfiguracaoPagamentoBusinessImp implements IConfiguracaoPagamentoB
     public void remover(ConfiguracaoPagamento configuracaoPagamento) throws BusinessException {
         try {
             configuracaoPagamentoDaoImp.remove(configuracaoPagamento);
+        } catch (DAOException e) {
+            e.printStackTrace();
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void remover(List<ConfiguracaoPagamento> configuracaoPagamento) throws BusinessException {
+        try {
+            for (ConfiguracaoPagamento cp : configuracaoPagamento) {
+                configuracaoPagamentoDaoImp.remove(cp);
+            }
         } catch (DAOException e) {
             e.printStackTrace();
             throw new BusinessException(e.getMessage());
@@ -69,5 +81,5 @@ public class ConfiguracaoPagamentoBusinessImp implements IConfiguracaoPagamentoB
         }
 
     }
-    
+
 }

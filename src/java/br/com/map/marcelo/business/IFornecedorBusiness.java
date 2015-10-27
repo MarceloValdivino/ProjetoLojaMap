@@ -19,6 +19,8 @@ public interface IFornecedorBusiness {
     public void salvarOuAtualizar(Fornecedor fornecedor) throws BusinessException;
 
     public void remover(Fornecedor fornecedor) throws BusinessException;
+    
+    public void remover(List<Fornecedor> fornecedor) throws BusinessException;
 
     public Fornecedor getById(Long id) throws BusinessException;
 

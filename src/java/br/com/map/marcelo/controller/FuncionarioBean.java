@@ -13,6 +13,7 @@ import br.com.map.marcelo.enums.Operadora;
 import br.com.map.marcelo.enums.Sexo;
 import br.com.map.marcelo.facade.Facade;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +37,7 @@ public class FuncionarioBean implements Serializable {
     private String senha;
     private Funcionario funcionario = new Funcionario();
     private List<Funcionario> listaFuncionarios;
+    private List<Funcionario> listaFuncionariosSelecionados = new ArrayList<>();
     private Contato contato = new Contato();
 
     @PostConstruct
@@ -44,7 +46,7 @@ public class FuncionarioBean implements Serializable {
         try {
             listaFuncionarios = facade.listarFuncionarios();
         } catch (BusinessException ex) {
-            Logger.getLogger(FuncionarioBean.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -137,5 +139,23 @@ public class FuncionarioBean implements Serializable {
             ex.printStackTrace();
         }
         return "index.jsf?faces-redirect=true";
+    }
+
+    public List<Funcionario> getListaFuncionariosSelecionados() {
+        return listaFuncionariosSelecionados;
+    }
+
+    public void setListaFuncionariosSelecionados(List<Funcionario> listaFuncionariosSelecionados) {
+        this.listaFuncionariosSelecionados = listaFuncionariosSelecionados;
+    }
+    
+    public String removerFuncionarios(){
+        try {
+            facade.removerFuncionarios(listaFuncionariosSelecionados);
+            return "todosFuncionarios.jsf?faces-redirect=true";
+        } catch (BusinessException ex) {
+            ex.printStackTrace();
+        }
+        return "";
     }
 }

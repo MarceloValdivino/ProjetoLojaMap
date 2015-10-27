@@ -18,6 +18,8 @@ public interface IConfiguracaoPagamentoBusiness {
     public void salvarOuAtualizar(ConfiguracaoPagamento configuracaoPagamento) throws BusinessException;
 
     public void remover(ConfiguracaoPagamento configuracaoPagamento) throws BusinessException;
+    
+    public void remover(List<ConfiguracaoPagamento> configuracaoPagamento) throws BusinessException;
 
     public ConfiguracaoPagamento getById(Long id) throws BusinessException;
 

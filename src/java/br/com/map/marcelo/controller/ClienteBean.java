@@ -32,6 +32,7 @@ public class ClienteBean implements Serializable {
     public Cliente cliente = new Cliente();
     public Contato contato = new Contato();
     public List<Cliente> listaDeClientes;
+    public List<Cliente> listaDeClientesSelecionados = new ArrayList<>();
     public Facade facade;
     
     @PostConstruct
@@ -91,6 +92,24 @@ public class ClienteBean implements Serializable {
             return "index.jsp?faces-redirect=true";
         } catch (BusinessException ex) {
             Logger.getLogger(ClienteBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+
+    public List<Cliente> getListaDeClientesSelecionados() {
+        return listaDeClientesSelecionados;
+    }
+
+    public void setListaDeClientesSelecionados(List<Cliente> listaDeClientesSelecionados) {
+        this.listaDeClientesSelecionados = listaDeClientesSelecionados;
+    }
+    
+    public String removerSelecionados(){
+        try {
+            facade.removerCliente(listaDeClientesSelecionados);
+            return "todosClientes.jsf?faces-redirect=true";
+        } catch (BusinessException ex) {
+            ex.printStackTrace();
         }
         return "";
     }

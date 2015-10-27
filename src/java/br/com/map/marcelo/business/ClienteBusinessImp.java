@@ -36,7 +36,7 @@ public class ClienteBusinessImp implements IClienteBusiness {
             } else {
                 clienteDao.save(cliente);
             }
-        } catch (DAOException|ValidationException e) {
+        } catch (DAOException | ValidationException e) {
             e.printStackTrace();
             throw new BusinessException(e.getMessage());
         }
@@ -46,6 +46,18 @@ public class ClienteBusinessImp implements IClienteBusiness {
     public void remover(Cliente cliente) throws BusinessException {
         try {
             clienteDao.remove(cliente);
+        } catch (DAOException e) {
+            e.printStackTrace();
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void remover(List<Cliente> clientes) throws BusinessException {
+        try {
+            for (Cliente cliente : clientes) {
+                clienteDao.remove(cliente);
+            }
         } catch (DAOException e) {
             e.printStackTrace();
             throw new BusinessException(e.getMessage());

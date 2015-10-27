@@ -41,6 +41,7 @@
     <h:body>
         <center>
             <h:form id="form">
+                <p:messages autoUpdate="true" closable="true"/>
                 <center>
                     <h:panelGrid columns="2">
                         <f:facet name="header">
@@ -50,50 +51,51 @@
                         </f:facet>
 
                         <p:outputLabel for="cliente" value="Cliente:"/>
-                        <p:selectOneMenu id="cliente" value="#{vendaBean.venda.cliente}">
+                        <p:selectOneMenu id="cliente" value="#{vendaBean.venda.cliente}" required="true" requiredMessage="Selecione um cliente." converterMessage="Erro ao selecionar um cliente." converter="ClienteConverter">
                             <f:selectItem itemLabel="Selecione"/>
                             <f:selectItems value="#{clienteBean.listaDeClientes}" var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}"/>
                         </p:selectOneMenu>
 
                         <p:outputLabel for="funcionario" value="Funcionário:"/>
-                        <p:selectOneMenu id="funcionario" value="#{vendaBean.venda.cliente}">
+                        <p:selectOneMenu id="funcionario" value="#{vendaBean.venda.cliente}" required="true" requiredMessage="Selecione um funcionário." converter="FuncionarioConverter" converterMessage="Erro ao selecionar um funcionario.">
                             <f:selectItem itemLabel="Selecione"/>
                             <f:selectItems value="#{funcionarioBean.listaFuncionarios}" var="funcionario" itemLabel="#{funcionario.nome}" itemValue="#{funcionario}"/>
                         </p:selectOneMenu>
 
                         <p:outputLabel for="pagamento" value="Tipo de Pagamento:"/>
-                        <p:selectOneMenu id="pagamento" value="#{vendaBean.venda.tipoPagamento}">
+                        <p:selectOneMenu id="pagamento" value="#{vendaBean.venda.tipoPagamento}" required="true" requiredMessage="Selecione um tipo de pagamento.">
                             <f:selectItem itemLabel="Selecione"/>
                             <f:selectItems value="#{vendaBean.tiposDePagamento}" var="tipo" itemLabel="#{tipo.pagamento}" itemValue="#{tipo}"/>
                         </p:selectOneMenu>
 
                         <p:outputLabel for="parcelas" value="Quant. de Parcelas:"/>
-                        <p:inputText id="parcelas" value="#{vendaBean.venda.quantidadeParcelas}"/>
+                        <p:inputText id="parcelas" value="#{vendaBean.venda.quantidadeParcelas}" required="true" requiredMessage="Insira a quantidade de parcelas."/>
 
                         <p:outputLabel for="configuracao" value="Conf. de Pagamento:"/>
-                        <p:selectOneMenu id="configuracao" value="#{vendaBean.venda.configuracaoPagamento}">
+                        <p:selectOneMenu id="configuracao" value="#{vendaBean.venda.configuracaoPagamento}" converter="ConfiguracaoPagamentoConverter" converterMessage="Erro ao selecionar Conf. de Pagamento." required="true" requiredMessage="Selecione uma configuração de pagamento.">
                             <f:selectItem itemLabel="Selecione"/>
                             <f:selectItems value="#{configuracaoPagamentoBean.listaDeConfiguracaoPagamento}" var="configuracao" itemLabel="#{configuracao.descricao}" itemValue="#{configuracao}"/>
                         </p:selectOneMenu>
 
                         <p:outputLabel for="itens" value="Itens Adicionados"/>                        
-                            <p:dataTable id="itens" value="#{vendaBean.venda.itens}" var="item" emptyMessage="Não há itens cadastrados.">
-                                <f:facet name="header">
-                                    <p:commandButton value="Adicionar Itens" onclick="PF('dlgAddItens').show(); return false;" update="form:dlgAddItens" ajax="false"/>
-                                </f:facet>
-                                <p:column headerText="Produto">
-                                    #{item.itemProduto.produto.descricao}
-                                </p:column>
-                                <p:column headerText="Quantidade">
-                                    #{item.quantidade}
-                                </p:column>
-                                <p:column headerText="Preço Unitário">
-                                    #{item.precoItem}
-                                </p:column>
-                                <p:column headerText="Valor Total">
-                                    #{(item.precoItem)*(item.quantidade)}
-                                </p:column>
-                            </p:dataTable>
+                        <p:dataTable id="itens" value="#{vendaBean.venda.itens}" var="item" emptyMessage="Não há itens cadastrados.">
+                            <f:facet name="header">
+                                <p:commandButton value="Adicionar Itens" onclick="PF('dlgAddItens').show();
+                                            return false;" update="form:dlgAddItens" ajax="false"/>
+                            </f:facet>
+                            <p:column headerText="Produto">
+                                #{item.itemProduto.produto.descricao}
+                            </p:column>
+                            <p:column headerText="Quantidade">
+                                #{item.quantidade}
+                            </p:column>
+                            <p:column headerText="Preço Unitário">
+                                #{item.precoItem}
+                            </p:column>
+                            <p:column headerText="Valor Total">
+                                #{(item.precoItem)*(item.quantidade)}
+                            </p:column>
+                        </p:dataTable>
                     </h:panelGrid>
                     <br></br>
                     <p:commandButton value="Cadastrar Venda" action="#{vendaBean.salvarVenda()}"/>
@@ -104,19 +106,19 @@
                     <p:outputPanel id="panel">
                         <h:panelGrid columns="2">
                             <p:outputLabel for="itemProduto" value="Item Produto"/>
-                            <p:selectOneMenu id="itemProduto" value="#{vendaBean.itemVenda.itemProduto}">
+                            <p:selectOneMenu id="itemProduto" value="#{vendaBean.itemVenda.itemProduto}" required="true" requiredMessage="Selecione um item produto." converterMessage="Erro ao selecionar item produto." converter="ItemProdutoConverter">
                                 <f:selectItem itemLabel="Selecione"/>
                                 <f:selectItems value="#{itemProdutoBean.listaItensProduto}" var="itemProduto" itemValue="#{itemProduto}"  itemLabel="#{itemProduto.produto.descricao},#{(itemProduto.porcentagemVendaUnidadeAtacado)*(itemProduto.precoCompraUnidade)}"/>
                             </p:selectOneMenu>
 
                             <p:outputLabel for="quantidade" value="Quantidade:"/>
-                            <p:inputText id="quantidade" value="#{vendaBean.itemVenda.quantidade}"/>
+                            <p:inputText id="quantidade" value="#{vendaBean.itemVenda.quantidade}" required="true" requiredMessage="Selecione a quantidade de itens."/>
 
                             <p:outputLabel for="descontoP" value="Desconto Item(%):"/>
-                            <p:inputText id="descontoP" value="#{vendaBean.itemVenda.descontoPorcentagemItem}"/>
+                            <p:inputText id="descontoP" value="#{vendaBean.itemVenda.descontoPorcentagemItem}" required="true" requiredMessage="Selecione o desconto. Ex. 0.1 para 10%."/>
 
                             <p:outputLabel for="tipoItemVenda" value="Tipo de Item Venda:"/>
-                            <p:selectOneMenu id="tipoItemVenda" value="#{vendaBean.itemVenda.tipoItemVenda}">
+                            <p:selectOneMenu id="tipoItemVenda" value="#{vendaBean.itemVenda.tipoItemVenda}" required="true" requiredMessage="Selecione o tipo de item venda.">
                                 <f:selectItem itemLabel="Selecione"/>
                                 <f:selectItems value="#{vendaBean.tiposItemVenda}" var="itemVenda" itemLabel="#{itemVenda.tipoItemVenda},#{itemVenda.valorDescontoVenda}" itemValue="#{itemVenda}"/>
                             </p:selectOneMenu>

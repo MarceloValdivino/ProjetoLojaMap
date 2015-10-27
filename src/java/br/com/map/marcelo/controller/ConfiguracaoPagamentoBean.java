@@ -10,6 +10,7 @@ import br.com.map.marcelo.entidades.ConfiguracaoPagamento;
 import br.com.map.marcelo.enums.TipoPagamento;
 import br.com.map.marcelo.facade.Facade;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +27,7 @@ public class ConfiguracaoPagamentoBean implements Serializable {
     
     public ConfiguracaoPagamento configuracaoPagamento = new ConfiguracaoPagamento();
     public List<ConfiguracaoPagamento> listaDeConfiguracaoPagamento;
+    public List<ConfiguracaoPagamento> listaDeConfiguracaoPagamentoSelecionados = new ArrayList<>();
     public Facade facade;
 
     public ConfiguracaoPagamentoBean() {
@@ -59,12 +61,32 @@ public class ConfiguracaoPagamentoBean implements Serializable {
     
     public String salvarConfiguracaoPagamento(){
         try {
-            facade.salvarOuAtualizarCliente(configuracaoPagamento);
+            facade.salvarOuAtualizarConfiguracaoPagamento(configuracaoPagamento);
             return "index.jsf?faces-redirect=true";
         } catch (BusinessException ex) {
             Logger.getLogger(ConfiguracaoPagamentoBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
     }
+    
+    public String removerSelecionados(){
+        try {
+            facade.removerConfiguracaoPagamento(listaDeConfiguracaoPagamentoSelecionados);
+            return "todosConfiguracaoPagamento.jsf?faces-redirect=true";
+        } catch (BusinessException ex) {
+            ex.printStackTrace();
+        }
+        return "";
+    }
+
+    public List<ConfiguracaoPagamento> getListaDeConfiguracaoPagamentoSelecionados() {
+        return listaDeConfiguracaoPagamentoSelecionados;
+    }
+
+    public void setListaDeConfiguracaoPagamentoSelecionados(List<ConfiguracaoPagamento> listaDeConfiguracaoPagamentoSelecionados) {
+        this.listaDeConfiguracaoPagamentoSelecionados = listaDeConfiguracaoPagamentoSelecionados;
+    }
+    
+    
 }
 

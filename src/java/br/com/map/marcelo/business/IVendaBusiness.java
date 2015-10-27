@@ -25,6 +25,8 @@ public interface IVendaBusiness {
     public void salvarOuAtualizar(Venda venda) throws BusinessException;
 
     public void remover(Venda venda) throws BusinessException;
+    
+    public void remover(List<Venda> vendas) throws BusinessException;
 
     public Venda getById(Long id) throws BusinessException;
 

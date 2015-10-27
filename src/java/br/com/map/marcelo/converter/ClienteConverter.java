@@ -5,7 +5,7 @@
  */
 package br.com.map.marcelo.converter;
 
-import br.com.map.marcelo.entidades.Fornecedor;
+import br.com.map.marcelo.entidades.Cliente;
 import br.com.map.marcelo.facade.Facade;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -17,21 +17,19 @@ import javax.faces.convert.FacesConverter;
  *
  * @author Marcelo
  */
-@FacesConverter(forClass = Fornecedor.class, value = "FornecedorConverter")
-public class FornecedorConverter implements Converter{
+@FacesConverter(forClass = Cliente.class, value = "ClienteConverter")
+public class ClienteConverter implements Converter {
 
     private Facade facade;
     
-    public FornecedorConverter() {
+    public ClienteConverter() {
         facade = Facade.getInstance();
     }
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            Fornecedor fornecedor = facade.buscarFornecedorPeloId(Long.parseLong(value));
-            System.out.println("getAsObject(), Fornecedor: "+fornecedor.getNome());
-            return facade.buscarFornecedorPeloId(Long.parseLong(value));
+            return facade.buscarClientePeloId(Long.parseLong(value));
         } catch (Exception e) {
             throw new ConverterException(e.getMessage());
         }
@@ -40,9 +38,8 @@ public class FornecedorConverter implements Converter{
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         if (value != null) {
-            Fornecedor fornecedor = (Fornecedor) value;
-            System.out.println("getAsString(), Fornecedor: "+fornecedor.getNome());
-            return String.valueOf(fornecedor.getId());
+            Cliente cliente = (Cliente) value;
+            return String.valueOf(cliente.getId());
         }
         return "";
     }

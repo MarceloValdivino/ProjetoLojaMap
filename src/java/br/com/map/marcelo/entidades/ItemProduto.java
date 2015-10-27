@@ -7,6 +7,7 @@ package br.com.map.marcelo.entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -97,5 +98,27 @@ public class ItemProduto implements Serializable {
 
     public void setDataEntrada(Calendar dataEntrada) {
         this.dataEntrada = dataEntrada;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ItemProduto other = (ItemProduto) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 }

@@ -3,18 +3,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Lista de Fornecedores</title>
     </h:head>
     <h:body>
-        <p:dataTable var="fornecedor" value="#{fornecedorBean.listaFornecedores}">
-            <p:column headerText="CNPJ">
-                #{fornecedor.cnpj}
-            </p:column>
-            <p:column headerText="Nome">
-                #{fornecedor.nome}
-            </p:column>
+        <h:form id="form">
+            <p:dataTable id="tableFornecedores" var="fornecedor" value="#{fornecedorBean.listaFornecedores}"
+                         rowKey="#{fornecedor.id}" selection="#{fornecedorBean.listaFornecedoresSelecionados}">
+                <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                <p:column headerText="CNPJ">
+                    #{fornecedor.cnpj}
+                </p:column>
+                <p:column headerText="Nome">
+                    #{fornecedor.nome}
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton value="Remover Selecionados" update="tableFornecedores" action="#{fornecedorBean.removerSelecionados()}"/>
+            </f:facet>
         </p:dataTable>
-    </h:body>
+    </h:form>
+</h:body>
 </html>

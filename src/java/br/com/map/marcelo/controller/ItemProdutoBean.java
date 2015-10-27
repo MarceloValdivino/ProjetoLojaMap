@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -36,7 +37,7 @@ public class ItemProdutoBean implements Serializable {
         try {
             listaItensProduto = facade.listarItemProdutos();
         } catch (BusinessException ex) {
-            Logger.getLogger(ItemProdutoBean.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -74,13 +75,12 @@ public class ItemProdutoBean implements Serializable {
     }
     
     public String removerSelecionados(){
-        for(ItemProduto item : itemProdutosSelecionados){
-            try {
-                facade.removerProduto(ItemProduto);
-            } catch (BusinessException ex) {
-                Logger.getLogger(ItemProdutoBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            facade.removerItemProdutos(itemProdutosSelecionados);
+            return "todosItemProduto.jsf?faces-redirect=true";
+        } catch (BusinessException ex) {
+            ex.printStackTrace();
         }
-        return "index.jsf?faces-redirect=true";
+        return "";
     }
 }

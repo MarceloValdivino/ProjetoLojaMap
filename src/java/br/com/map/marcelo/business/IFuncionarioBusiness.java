@@ -18,6 +18,8 @@ public interface IFuncionarioBusiness {
     public void salvarOuAtualizar(Funcionario funcionario) throws BusinessException;
 
     public void remover(Funcionario funcionario) throws BusinessException;
+    
+    public void remover(List<Funcionario> funcionario) throws BusinessException;
 
     public Funcionario getById(Long id) throws BusinessException;
 
